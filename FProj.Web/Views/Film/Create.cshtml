@@ -1,4 +1,5 @@
-﻿@model FProj.Api.FilmApi
+﻿@using FProj.Api
+@model FProj.Api.FilmApi
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,6 +22,19 @@
                     <tr>
                         <td>Director</td>
                         <td><input class="form-control" type="text" name="Director" value="@Model.Director" required="required"/></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Actors</td>
+                        <td>
+                            <select data-placeholder="Your Favorite Football Team" class="chosen-select form-control" multiple tabindex="6">
+                                @foreach (ActorApi actor in ViewBag.Actors)
+                                {
+                                    <option value="@actor.Id">@actor.LastName @actor.FirstName</option>
+                                }
+                                
+                            </select>
+                        </td>
                     </tr>
 
                     <tr>
@@ -77,6 +91,8 @@
 </div>
     <script>
         $(function () {
+            $(".chosen-select").chosen();
+
             $("#file").on("change",
                 function () {
                     if ($(this)[0].files.length == 0) return;

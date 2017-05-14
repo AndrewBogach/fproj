@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActorRepository.cs" />
     <Compile Include="Base\BaseRepository.cs" />
     <Compile Include="FilmRepository.cs" />
     <Compile Include="ImageRepository.cs" />

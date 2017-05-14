@@ -22,5 +22,10 @@ namespace FProj.Repository
 
         private UserRepository _userRepository;
         public UserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(_context));
+
+        private ActorRepository _actorRepository;
+
+        public ActorRepository ActorRepository => _actorRepository ??
+                                                  (_actorRepository = new ActorRepository(_context));
     }
 }

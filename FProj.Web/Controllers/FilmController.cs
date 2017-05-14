@@ -42,7 +42,11 @@ namespace FProj.Web.Controllers
         }
 
         [Authorize]
-        public ActionResult Create() => View(UnitOfWork.Instance.FilmRepository.Default());
+        public ActionResult Create()
+        {
+            ViewBag.Actors = UnitOfWork.Instance.ActorRepository.GetAll();
+            return View(UnitOfWork.Instance.FilmRepository.Default());
+        }
 
         [Authorize]
         [HttpPost]
