@@ -12,7 +12,7 @@ namespace FProj.Data
         public DbSet<Actor> Actor { get; set; }
         public DbSet<Genre> Genre { get; set; }
 
-        public FProjContext(): base("FProjConnectionLocal")
+        public FProjContext(): base("FProjConnection")
         {
 
         }

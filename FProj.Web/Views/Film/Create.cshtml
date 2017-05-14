@@ -46,7 +46,8 @@
                     <tr>
                         <td>Poster</td>
                         <td>
-                            <input class="form-control" type="file" id="file" name="file" accept="image/jpeg,image/png,image/gif" required="required"/>
+                            <input class="form-control" type="file" id="file" name="file" accept="image/jpeg,image/png,image/gif"/>
+                            @Html.ValidationMessageFor(model => model.Poster)
                         </td>
                     </tr>
                     <tr>

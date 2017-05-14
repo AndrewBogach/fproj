@@ -1,0 +1,40 @@
+﻿@model FProj.Api.ResponsePage<FProj.Api.FilmApi>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container body-content">
+    @Html.Partial("FilmList", Model.Data);
+    <div class="col-md-12 paginator">
+        <ul class="pagination">
+            @for (int i = 1; i <= Model.Count; i++)
+            {
+                <li><a class="page @(i == 1 ? "active" : "" )" data-id="@i" href="#">@i</a></li>
+            }
+        </ul>
+    </div>
+</div>
+<script>
+    $(function() {
+        $(".page").click(function() {
+            if ($(this).hasClass("active")) return false;
+
+            $(".active").removeClass("active");
+            let page = $(this).attr("data-id");
+            $(this).addClass("active");
+
+            $.ajax({
+                type: "get",
+                url: '@Url.Action("GetMyPage")',
+                data: {
+                    CountPerPage: 5,
+                    PageNumber: page
+                },
+                success: function(response) {
+                    $("#body").html(response);
+                }
+            });
+            return false;
+        });
+    });
+</script>

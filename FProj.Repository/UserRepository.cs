@@ -26,7 +26,7 @@ namespace FProj.Repository
             var account = new UserAccount()
             {
                 Email = user.Email,
-                Password = Crypto.HashPassword(password) + salt,
+                Password = Crypto.HashPassword(password + salt),
                 Salt = salt
             };
             _dbContext.UserAccount.Add(account);
@@ -55,7 +55,7 @@ namespace FProj.Repository
         {
             var account = _dbContext.UserAccount.FirstOrDefault(x => x.Email == email);
 
-            return account != null && Crypto.VerifyHashedPassword(account.Password.Replace(account.Salt, ""), password) ? GetUserByEmail(email) : null;
+            return account != null && Crypto.VerifyHashedPassword(account.Password, password + account.Salt) ? GetUserByEmail(email) : null;
         }
     }
 }

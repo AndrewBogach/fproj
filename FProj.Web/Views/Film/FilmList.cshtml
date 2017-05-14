@@ -2,47 +2,49 @@
 <div id="body">
     @foreach (var film in Model)
     {
-        <div class="col-md-12">
-            <div class="col-md-4">
-                <img class="img-thumbnail poster" src="@film.Poster?.Path" onerror="this.src = '/images/default.jpg'" />
-            </div>
-            <div class="col-md-8">
-                <h3><b>@film.Title</b></h3>
-                <table class="table table-responsive" style="text-align:justify">
-                    <tr>
-                        <td>Director</td>
-                        <td>@film.Director</td>
-                    </tr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <img class="img-thumbnail poster" src="@(film.Poster == null ? "/images/default.jpg" : film.Poster.Path)" onerror="this.src = '/images/default.jpg'" />
+                </div>
+                <div class="col-md-8">
+                    <h3><b>@film.Title</b></h3>
+                    <table class="table table-responsive" style="text-align:justify">
+                        <tr>
+                            <td>Director</td>
+                            <td>@film.Director</td>
+                        </tr>
 
-                    <tr>
-                        <td>Duration</td>
-                        <td>@film.Duration min</td>
-                    </tr>
+                        <tr>
+                            <td>Duration</td>
+                            <td>@film.Duration min</td>
+                        </tr>
 
-                    <tr>
-                        <td>Premiere Date</td>
-                        <td>@film.PremiereDate.ToShortDateString()</td>
-                    </tr>
+                        <tr>
+                            <td>Premiere Date</td>
+                            <td>@film.PremiereDate.ToShortDateString()</td>
+                        </tr>
 
-                    <tr>
-                        <td>Rate</td>
-                        <td>@film.Rate+</td>
-                    </tr>
+                        <tr>
+                            <td>Rate</td>
+                            <td>@film.Rate+</td>
+                        </tr>
 
-                    <tr>
-                        <td>Description</td>
-                        <td>@film.Description</td>
-                    </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>@film.Description</td>
+                        </tr>
 
-                    <tr>
-                        <td>
-                            <button class="btn btn-primary details" data-id="@film.Id">Details</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger delete" data-id="@film.Id">Delete</button>
-                        </td>
-                    </tr>
-                </table>
+                        <tr>
+                            <td>
+                                <button class="btn btn-primary details" data-id="@film.Id">Details</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger delete" data-id="@film.Id">Delete</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     }

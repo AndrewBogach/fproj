@@ -20,18 +20,10 @@ namespace FProj.Repository
 
         public FilmApi Create(FilmApi model)
         {
-            model.User = DataToApi.UserToApi(_dbContext.User.FirstOrDefault());
             var filmData = ApiToData.FilmApiToData(model);
-            try
-            {
-                _dbContext.Film.Add(filmData);
-                _dbContext.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+
+            _dbContext.Film.Add(filmData);
+            _dbContext.SaveChanges();
 
             return DataToApi.FilmToApi(filmData);
         }
@@ -75,23 +67,28 @@ namespace FProj.Repository
             return DataToApi.FilmToApi(newData);
         }
 
-        public ResponsePage<FilmApi> GetPage(int page, int size = 5)
+        public ResponsePage<FilmApi> GetPage(int page, int size = 5, UserApi user = null)
         {
-            var filmApi = _dbContext.Film.OrderByDescending(x => x.DateCreated)
-                .Where(x => !x.IsDeleted)
+
+            var filmApi = user == null
+                ? _dbContext.Film.OrderByDescending(x => x.DateCreated).Where(x => !x.IsDeleted)
+                : _dbContext.Film.OrderByDescending(x => x.DateCreated)
+                    .Where(x => !x.IsDeleted && x.UserIdCreator == user.Id);
+
+            var data = filmApi
                 .Skip((page - 1) * size)
                 .Take(size)
                 .ToList()
                 .Select(DataToApi.FilmToApi)
                 .ToList();
 
-            int count = _dbContext.Film.Count(x => !x.IsDeleted) % size == 0
-                ? _dbContext.Film.Count(x => !x.IsDeleted) / size
-                : _dbContext.Film.Count(x => !x.IsDeleted) / size + 1;
+            int count = filmApi.Count() % size == 0
+                ? filmApi.Count() / size
+                : filmApi.Count() / size + 1;
 
             return new ResponsePage<FilmApi>()
             {
-                Data = filmApi,
+                Data = data,
                 Count = count
             };
         }

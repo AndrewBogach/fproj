@@ -26,5 +26,11 @@ namespace FProj.Web.Controllers
 
             return RedirectToAction("Index", "Film");
         }
+
+        public ActionResult SignOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -32,9 +32,17 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("Film", "Index", "Film")</li>
-                            <li>@Html.ActionLink("Create", "Create", "Film")</li>
-                            <li>@Html.ActionLink("Sign Up", "SignUp", "User")</li>
-                            <li>@Html.ActionLink("Sign In", "SignIn", "User")</li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>@Html.ActionLink("My films", "MyFilms", "Film")</li>
+                                <li>@Html.ActionLink("Create", "Create", "Film")</li>
+                                <li>@Html.ActionLink("Sign Out", "SignOut", "User")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Sign Up", "SignUp", "User")</li>
+                                <li>@Html.ActionLink("Sign In", "SignIn", "User")</li>
+                            }
                         </ul>
                     </div>
                 </div>
